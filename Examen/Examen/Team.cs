@@ -63,7 +63,7 @@ namespace Examen
                     break;
                 }
             }
-            for (int i = 0; i < allPlayers.Count(); i++)
+            for (int i = 0; i < 11; i++)
             {
                 if (i == keeperPlace)
                 {
@@ -79,35 +79,36 @@ namespace Examen
 
         public bool CheckNations()
         {
-            if (type == "nacional" || type == "Nacional")
+            bool checkNat = true;
+            string nation = "";
+            for (int i = 0; i < allPlayers.Count(); i++)
             {
-                bool checkNat = true;
-                string nation="";
-                for (int i = 0; i < allPlayers.Count(); i++)
+                if (i == 0)
                 {
-                    if (i == 0)
+                    nation = allPlayers[i].GetNation();
+                }
+                else
+                {
+                    if (nation == allPlayers[i].GetNation())
                     {
-                        nation = allPlayers[i].GetNation();
+                        continue;
                     }
                     else
                     {
-                        if (nation == allPlayers[i].GetNation())
-                        {
-                            continue;
-                        }
-                        else
-                        {
-                            checkNat = false;
-                            break;
-                        }
+                        checkNat = false;
+                        break;
                     }
                 }
-                return checkNat;
+            }
+            if (checkNat)
+            {
+                type = "Nacional";
             }
             else
             {
-                return false;
+                type = "Liga";
             }
+            return checkNat;
         }
     }
 }
